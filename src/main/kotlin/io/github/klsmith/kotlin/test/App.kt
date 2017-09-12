@@ -2,8 +2,8 @@ package io.github.klsmith.kotlin.test
 
 import io.github.klsmith.kotlin.test.units.div
 import io.github.klsmith.kotlin.test.units.of
-import io.github.klsmith.kotlin.test.units.length.Pixels.Unit as px
-import io.github.klsmith.kotlin.test.units.time.Seconds.Unit as s
+import io.github.klsmith.kotlin.test.units.Pixels.Unit as px
+import io.github.klsmith.kotlin.test.units.Seconds.Unit as s
 
 fun main(args: Array<String>) {
 	val pixels = 64 of px

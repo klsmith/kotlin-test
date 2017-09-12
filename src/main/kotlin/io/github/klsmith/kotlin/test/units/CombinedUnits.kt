@@ -1,9 +1,6 @@
 package io.github.klsmith.kotlin.test.units
 
-import io.github.klsmith.kotlin.test.units.length.Pixels
-import io.github.klsmith.kotlin.test.units.time.Seconds
-import io.github.klsmith.kotlin.test.units.length.Pixels.Unit as px
-import io.github.klsmith.kotlin.test.units.time.Seconds.Unit as seconds
+/* Pixels per Second */
 
 data class PixelsPerSecond private constructor(override val value: Double) : GenericMeasuredValue<PixelsPerSecond>(value, Unit) {
 	companion object Unit : CachedUnit<PixelsPerSecond>("pixels/second", "pps", ::PixelsPerSecond)

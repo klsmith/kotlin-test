@@ -12,7 +12,7 @@ interface UnitType<U : MeasuredValue<U>> {
 	operator fun invoke(value: Double): U
 }
 
-open class CachedUnit<U : MeasuredValue<U>>(
+abstract class CachedUnit<U : MeasuredValue<U>>(
 		override val name: String,
 		override val abbreviation: String,
 		private val cache: Cache<Double, U>
