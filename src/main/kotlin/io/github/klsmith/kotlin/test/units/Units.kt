@@ -13,7 +13,7 @@ interface UnitType<U : MeasuredValue<U>> {
 	operator fun invoke(value: Double): U
 }
 
-abstract class CachedUnit<U : MeasuredValue<U>>(
+abstract class CachedUnitType<U : MeasuredValue<U>>(
 		override val name: String,
 		override val abbreviation: String,
 		private val cache: Cache<Double, U>
@@ -25,31 +25,19 @@ abstract class CachedUnit<U : MeasuredValue<U>>(
 interface MeasuredValue<U : MeasuredValue<U>> : Comparable<U> {
 	val value: Double
 	val unit: UnitType<U>
-	val displayString: String
-	val abbreviatedDisplayString: String
-	operator fun unaryPlus(): U
-	operator fun unaryMinus(): U
-	operator fun inc(): U
-	operator fun dec(): U
-	operator fun plus(other: U): U
-	operator fun minus(other: U): U
-	operator fun times(scalar: Double): U
-	operator fun div(scalar: Double): U
-}
-
-abstract class GenericMeasuredValue<U : GenericMeasuredValue<U>>(
-		override val value: Double,
-		override val unit: UnitType<U>
-) : MeasuredValue<U> {
-	override val displayString; get() = "$value ${unit.name}"
-	override val abbreviatedDisplayString; get() = "$value ${unit.abbreviation}"
-	override operator fun unaryPlus() = unit(value)
-	override operator fun unaryMinus() = unit(-value)
-	override operator fun inc() = unit(value + 1)
-	override operator fun dec() = unit(value - 1)
-	override operator fun plus(other: U) = unit(value + other.value)
-	override operator fun minus(other: U) = unit(value - other.value)
-	override operator fun times(scalar: Double) = unit(value * scalar)
-	override operator fun div(scalar: Double) = unit(value / scalar)
+	val displayString: String; get() = "$value ${unit.name}"
+	val abbreviatedDisplayString: String; get() = "$value ${unit.abbreviation}"
+	operator fun unaryPlus(): U = unit(value)
+	operator fun unaryMinus(): U = unit(-value)
+	operator fun inc(): U = unit(value + 1)
+	operator fun dec(): U = unit(value - 1)
+	operator fun plus(other: U): U = plus(other.value)
+	operator fun plus(number: Number): U = plus(number.toDouble())
+	operator fun plus(otherValue: Double): U = unit(value + otherValue)
+	operator fun minus(other: U): U = minus(other.value)
+	operator fun minus(number: Number): U = minus(number.toDouble())
+	operator fun minus(otherValue: Double): U = unit(value - otherValue)
+	operator fun times(scalar: Double): U = unit(value * scalar)
+	operator fun div(scalar: Double): U = unit(value / scalar)
 	override fun compareTo(other: U) = if (value > other.value) 1 else if (value < other.value) -1 else 0
 }

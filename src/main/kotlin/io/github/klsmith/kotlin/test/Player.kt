@@ -5,7 +5,7 @@ import io.github.klsmith.kotlin.test.InputEvent.RELEASED
 import io.github.klsmith.kotlin.test.InputType.KEYBOARD_A
 import io.github.klsmith.kotlin.test.InputType.KEYBOARD_D
 import io.github.klsmith.kotlin.test.units.of
-import io.github.klsmith.kotlin.test.units.PixelsPerSecond.Unit as pps
+import io.github.klsmith.kotlin.test.units.pps
 
 private const val PLAYER_SPEED_PPS = 64F
 

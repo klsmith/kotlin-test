@@ -3,12 +3,13 @@ package io.github.klsmith.kotlin.test.units
 
 /**** Nanoseconds ****/
 
-typealias ns = Nanoseconds.Unit
+typealias ns = Nanoseconds.UnitType
 
-data class Nanoseconds private constructor(override val value: Double) : GenericMeasuredValue<Nanoseconds>(value, Unit) {
-	companion object Unit : CachedUnit<Nanoseconds>("nanoseconds", "ns", ::Nanoseconds)
+data class Nanoseconds private constructor(override val value: Double) : MeasuredValue<Nanoseconds> {
+	companion object UnitType : CachedUnitType<Nanoseconds>("nanoseconds", "ns", ::Nanoseconds)
 
-	fun asMilliseconds(): Milliseconds = nanosecondsToMilliseconds(value) of Milliseconds.Unit
+	override val unit = UnitType
+	fun asMilliseconds(): Milliseconds = nanosecondsToMilliseconds(value) of Milliseconds.UnitType
 	fun asSeconds(): Seconds = asMilliseconds().asSeconds()
 }
 
@@ -19,13 +20,14 @@ fun nanosecondsToMilliseconds(nanoseconds: Double): Double = nanoseconds * NANOS
 
 /**** Milliseconds ****/
 
-typealias ms = Milliseconds.Unit
+typealias ms = Milliseconds.UnitType
 
-data class Milliseconds private constructor(override val value: Double) : GenericMeasuredValue<Milliseconds>(value, Unit) {
-	companion object Unit : CachedUnit<Milliseconds>("milliseconds", "ms", ::Milliseconds)
+data class Milliseconds private constructor(override val value: Double) : MeasuredValue<Milliseconds> {
+	companion object UnitType : CachedUnitType<Milliseconds>("milliseconds", "ms", ::Milliseconds)
 
-	fun asNanoseconds(): Nanoseconds = millisecondsToNanoseconds(value) of Nanoseconds.Unit
-	fun asSeconds(): Seconds = millisecondsToSeconds(value) of Seconds.Unit
+	override val unit = UnitType
+	fun asNanoseconds(): Nanoseconds = millisecondsToNanoseconds(value) of Nanoseconds.UnitType
+	fun asSeconds(): Seconds = millisecondsToSeconds(value) of Seconds.UnitType
 }
 
 const val MILLISECONDS_PER_NANOSECOND: Double = 1.0 / NANOSECONDS_PER_MILLISECOND
@@ -37,13 +39,14 @@ fun millisecondsToSeconds(milliseconds: Double): Double = milliseconds * MILLISE
 
 /**** Seconds ****/
 
-typealias s = Seconds.Unit
+typealias s = Seconds.UnitType
 
-data class Seconds private constructor(override val value: Double) : GenericMeasuredValue<Seconds>(value, Unit) {
-	companion object Unit : CachedUnit<Seconds>("seconds", "s", ::Seconds)
+data class Seconds private constructor(override val value: Double) : MeasuredValue<Seconds> {
+	companion object UnitType : CachedUnitType<Seconds>("seconds", "s", ::Seconds)
 
+	override val unit = UnitType
 	fun asNanoseconds(): Nanoseconds = asMilliseconds().asNanoseconds()
-	fun asMilliseconds(): Milliseconds = secondsToMilliseconds(value) of Milliseconds.Unit
+	fun asMilliseconds(): Milliseconds = secondsToMilliseconds(value) of Milliseconds.UnitType
 }
 
 const val SECONDS_PER_MILLISECOND: Double = 1.0 / MILLISECONDS_PER_SECOND

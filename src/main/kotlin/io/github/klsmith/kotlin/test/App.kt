@@ -15,6 +15,8 @@ fun main(args: Array<String>) {
 	println(pixels.abbreviatedDisplayString)
 	println(seconds.abbreviatedDisplayString)
 	println(speed.abbreviatedDisplayString)
-	val differentPixels = 64 of px
-	println("${pixels.abbreviatedDisplayString} === ${differentPixels.abbreviatedDisplayString} ? ${pixels === differentPixels}")
+	var differentPixels = 64 of px
+	differentPixels++
+	differentPixels -= 2
+	println("${pixels.abbreviatedDisplayString} >= ${differentPixels.abbreviatedDisplayString} ? ${pixels >= differentPixels}")
 }
