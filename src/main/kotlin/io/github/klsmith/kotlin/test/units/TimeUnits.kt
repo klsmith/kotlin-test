@@ -3,6 +3,8 @@ package io.github.klsmith.kotlin.test.units
 
 /**** Nanoseconds ****/
 
+typealias ns = Nanoseconds.Unit
+
 data class Nanoseconds private constructor(override val value: Double) : GenericMeasuredValue<Nanoseconds>(value, Unit) {
 	companion object Unit : CachedUnit<Nanoseconds>("nanoseconds", "ns", ::Nanoseconds)
 
@@ -16,6 +18,8 @@ fun nanosecondsToMilliseconds(nanoseconds: Double): Double = nanoseconds * NANOS
 
 
 /**** Milliseconds ****/
+
+typealias ms = Milliseconds.Unit
 
 data class Milliseconds private constructor(override val value: Double) : GenericMeasuredValue<Milliseconds>(value, Unit) {
 	companion object Unit : CachedUnit<Milliseconds>("milliseconds", "ms", ::Milliseconds)
@@ -32,6 +36,8 @@ fun millisecondsToSeconds(milliseconds: Double): Double = milliseconds * MILLISE
 
 
 /**** Seconds ****/
+
+typealias s = Seconds.Unit
 
 data class Seconds private constructor(override val value: Double) : GenericMeasuredValue<Seconds>(value, Unit) {
 	companion object Unit : CachedUnit<Seconds>("seconds", "s", ::Seconds)

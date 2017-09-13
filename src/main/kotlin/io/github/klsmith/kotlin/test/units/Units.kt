@@ -1,7 +1,8 @@
 package io.github.klsmith.kotlin.test.units
 
 import io.github.klsmith.kotlin.test.Cache
-import io.github.klsmith.kotlin.test.SimpleCache
+import io.github.klsmith.kotlin.test.Constructor
+import io.github.klsmith.kotlin.test.SimpleInMemoryCache
 
 infix fun <V : Number, U : MeasuredValue<U>> V.of(unit: UnitType<U>) = this.toDouble() of unit
 infix fun <U : MeasuredValue<U>> Double.of(unit: UnitType<U>) = unit(this)
@@ -16,11 +17,9 @@ abstract class CachedUnit<U : MeasuredValue<U>>(
 		override val name: String,
 		override val abbreviation: String,
 		private val cache: Cache<Double, U>
-) : UnitType<U> {
-	constructor(name: String, abbreviation: String, constructor: (Double) -> U)
-			: this(name, abbreviation, SimpleCache(constructor))
-
-	override operator fun invoke(value: Double) = cache.get(value)
+) : UnitType<U>, Cache<Double, U> by cache {
+	constructor(name: String, abbreviation: String, constructor: Constructor<Double, U>)
+			: this(name, abbreviation, SimpleInMemoryCache(constructor))
 }
 
 interface MeasuredValue<U : MeasuredValue<U>> : Comparable<U> {

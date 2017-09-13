@@ -1,14 +1,17 @@
 package io.github.klsmith.kotlin.test
 
+import io.github.klsmith.kotlin.test.units.Pixels
+import io.github.klsmith.kotlin.test.units.PixelsPerSecond
+import io.github.klsmith.kotlin.test.units.Seconds
 import io.github.klsmith.kotlin.test.units.div
 import io.github.klsmith.kotlin.test.units.of
-import io.github.klsmith.kotlin.test.units.Pixels.Unit as px
-import io.github.klsmith.kotlin.test.units.Seconds.Unit as s
+import io.github.klsmith.kotlin.test.units.px
+import io.github.klsmith.kotlin.test.units.s
 
 fun main(args: Array<String>) {
-	val pixels = 64 of px
-	val seconds = 1 of s
-	val speed = pixels / seconds
+	val pixels: Pixels = 64 of px
+	val seconds: Seconds = 1 of s
+	val speed: PixelsPerSecond = pixels / seconds
 	println(pixels.abbreviatedDisplayString)
 	println(seconds.abbreviatedDisplayString)
 	println(speed.abbreviatedDisplayString)

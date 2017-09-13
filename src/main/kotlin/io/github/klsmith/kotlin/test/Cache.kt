@@ -1,16 +1,12 @@
 package io.github.klsmith.kotlin.test
 
 interface Cache<V, out R> {
-	fun get(value: V): R
+	operator fun invoke(value: V): R
 }
 
-class SimpleCache<V, out R>(private val constructor: (V) -> R) : Cache<V, R> {
-	private val cache = mutableMapOf<V, R>()
+typealias Constructor<V, R> = (V) -> R
 
-	override fun get(value: V): R {
-		if (!cache.contains(value)) {
-			cache[value] = constructor(value)
-		}
-		return cache[value]!!
-	}
+class SimpleInMemoryCache<V, out R>(private val constructor: Constructor<V, R>) : Cache<V, R> {
+	private val map = mutableMapOf<V, R>()
+	override operator fun invoke(value: V): R = map.getOrPut(value) { constructor(value) }
 }
