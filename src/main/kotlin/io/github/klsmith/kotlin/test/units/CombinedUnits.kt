@@ -8,6 +8,8 @@ data class PixelsPerSecond private constructor(override val value: Double) : Mea
 	companion object UnitType : CachedUnitType<PixelsPerSecond>("pixels/second", "pps", ::PixelsPerSecond)
 
 	override val unit = UnitType
+
+	fun pixelsPer(time: AsSeconds) = (value * time.asSeconds().value) of px
 }
 
 operator fun Pixels.div(seconds: Seconds): PixelsPerSecond = PixelsPerSecond(value / seconds.value)

@@ -5,11 +5,9 @@ import io.github.klsmith.kotlin.test.InputEvent.RELEASED
 import io.github.klsmith.kotlin.test.InputType.KEYBOARD_A
 import io.github.klsmith.kotlin.test.InputType.KEYBOARD_D
 import io.github.klsmith.kotlin.test.units.of
-import io.github.klsmith.kotlin.test.units.pps
+import io.github.klsmith.kotlin.test.units.*
 
-private const val PLAYER_SPEED_PPS = 64F
-
-class Player(x: Float = 0F, y: Float = 0F) {
+class Player(x: Pixels = 0 of px, y: Pixels = 0 of px) {
 
 	private val machine = PlayerStateMachine(x, y)
 
@@ -18,8 +16,7 @@ class Player(x: Float = 0F, y: Float = 0F) {
 
 }
 
-private class PlayerStateMachine(var x: Float, var y: Float) {
-
+private class PlayerStateMachine(var x: Pixels, var y: Pixels) {
 	val speed = 64 of pps
 
 	private val idle = Idle(this)
@@ -42,11 +39,11 @@ private class PlayerStateMachine(var x: Float, var y: Float) {
 		state = moveRight
 	}
 
-	fun update(delta: Float) {
+	fun update(delta: Milliseconds) {
 		state.update(delta)
 	}
 
-	fun render(delta: Float) {
+	fun render(delta: Milliseconds) {
 		state.render(delta)
 	}
 
@@ -61,9 +58,9 @@ private class Idle(val machine: PlayerStateMachine) : State {
 
 	override val name = "Idle"
 
-	override fun update(delta: Float) {}
+	override fun update(delta: Milliseconds) {}
 
-	override fun render(delta: Float) {}
+	override fun render(delta: Milliseconds) {}
 
 	override fun handle(input: Input) {
 		val (type, event) = input
@@ -83,11 +80,11 @@ private class MoveLeft(val machine: PlayerStateMachine) : State {
 
 	override val name = "MoveLeft"
 
-	override fun update(delta: Float) {
-		machine.x -= PLAYER_SPEED_PPS * delta
+	override fun update(delta: Milliseconds) {
+		machine.x -= machine.speed.pixelsPer(delta)
 	}
 
-	override fun render(delta: Float) {}
+	override fun render(delta: Milliseconds) {}
 
 	override fun handle(input: Input) {
 		when (input) {
@@ -101,11 +98,11 @@ private class MoveRight(val machine: PlayerStateMachine) : State {
 
 	override val name = "MoveRight"
 
-	override fun update(delta: Float) {
-		machine.x += PLAYER_SPEED_PPS * delta
+	override fun update(delta: Milliseconds) {
+		machine.x += machine.speed.pixelsPer(delta)
 	}
 
-	override fun render(delta: Float) {}
+	override fun render(delta: Milliseconds) {}
 
 	override fun handle(input: Input) {
 		when (input) {
