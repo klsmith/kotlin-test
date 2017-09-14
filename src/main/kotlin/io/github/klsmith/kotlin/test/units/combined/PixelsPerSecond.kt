@@ -12,4 +12,5 @@ data class PixelsPerSecond private constructor(override val value: Double) : Mea
 	fun pixelsPer(time: AsSeconds) = (value * time.asSeconds().value) of px
 }
 
-operator fun Pixels.div(seconds: Seconds): PixelsPerSecond = PixelsPerSecond(value / seconds.value)
+operator fun Pixels.div(asSeconds: AsSeconds) = div(asSeconds.asSeconds())
+operator fun Pixels.div(seconds: Seconds) = PixelsPerSecond(value / seconds.value)

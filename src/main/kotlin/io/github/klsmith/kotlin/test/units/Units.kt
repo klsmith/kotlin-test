@@ -39,5 +39,9 @@ interface MeasuredValue<U : MeasuredValue<U>> : Comparable<U> {
 	operator fun minus(otherValue: Double): U = unit(value - otherValue)
 	operator fun times(scalar: Double): U = unit(value * scalar)
 	operator fun div(scalar: Double): U = unit(value / scalar)
+	fun abs(): U = unit(Math.abs(value))
+	fun round(): U = unit(Math.round(value).toDouble())
+	fun ceil(): U = unit(Math.ceil(value).toDouble())
+	fun floor(): U = unit(Math.floor(value).toDouble())
 	override fun compareTo(other: U) = if (value > other.value) 1 else if (value < other.value) -1 else 0
 }
