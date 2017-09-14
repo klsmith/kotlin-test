@@ -5,7 +5,7 @@ package io.github.klsmith.kotlin.test.units
 typealias pps = PixelsPerSecond.UnitType
 
 data class PixelsPerSecond private constructor(override val value: Double) : MeasuredValue<PixelsPerSecond> {
-	companion object UnitType : CachedUnitType<PixelsPerSecond>("pixels/second", "pps", ::PixelsPerSecond)
+	companion object UnitType : CachedUnitType<PixelsPerSecond>("pixels/second", "px/s", ::PixelsPerSecond)
 
 	override val unit = UnitType
 

@@ -17,7 +17,7 @@ fun main(args: Array<String>) {
 	}
 	val nvl: String? = choose("hello", "world", "", null)
 	if (nvl.isNullOrEmpty()) {
-		println("null or empty '$nvl'")
+		println("\"$nvl\"")
 	} else {
 		println("$nvl")
 	}
